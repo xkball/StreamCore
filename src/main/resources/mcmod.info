@@ -1,0 +1,16 @@
+[
+{
+  "modid": "stream_core",
+  "name": "Stream Core",
+  "description": "A lib mod and something else by xkball.",
+  "version": "0.1",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["xkball"],
+  "credits": "xkball",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.xkball.stream_core.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "stream_core.refmap.json",
+  "minVersion": "0.7",
+  "mixins": [
+    "SCMixinBlockStone",
+    "SCMixinChunk",
+    "SCMixinConfigManager"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
