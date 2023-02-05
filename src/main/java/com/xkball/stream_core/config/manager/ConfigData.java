@@ -17,6 +17,7 @@ public class ConfigData {
     @Nonnull
     private final ASMDataTable.ASMData data;
     private ASMDataTable.ASMData adv;
+    private ArrayList<ConfigLoader> subLoaders;
     
     public ConfigData(@Nonnull ASMDataTable.ASMData data) {
         this.data = data;
@@ -93,10 +94,15 @@ public class ConfigData {
         return (ConfigLoader) configLoader.newInstance();
     }
     
-//    public ConfigLoader[] getSubLoaders(){
-//        ArrayList<Class<? extends ConfigLoader>> classes = new ArrayList<>();
-//        for
-//    }
+    public ConfigLoader[] getSubLoaders() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        if(subLoaders == null){
+            subLoaders = new ArrayList<>();
+            for(Object type : ((ArrayList<?>)this.adv.getAnnotationInfo().get("loaders"))){
+                subLoaders.add((ConfigLoader) Class.forName(((Type)type).getClassName()).newInstance());
+            }
+        }
+        return subLoaders.toArray(new ConfigLoader[0]);
+    }
     
     @Nonnull
     public ASMDataTable.ASMData getData() {

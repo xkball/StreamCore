@@ -1,6 +1,6 @@
 package com.xkball.stream_core.config;
 
-import com.xkball.stream_core.block.BlockType;
+import com.xkball.stream_core.common.block.BlockType;
 import com.xkball.stream_core.config.loader.BasicConfigLoaders;
 import com.xkball.stream_core.config.loader.MapConfigLoader;
 import com.xkball.stream_core.config.manager.Config;
