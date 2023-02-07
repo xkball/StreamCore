@@ -10,21 +10,24 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 public class ConfigData {
+    
+    public static final String SUB_LOADERS = "subLoaders";
     @Nonnull
     private final ASMDataTable.ASMData data;
-    private ASMDataTable.ASMData adv;
+    //name,data
+    private final Map<String,ASMDataTable.ASMData> adv = new HashMap<>();
+    private ConfigLoader loader;
     private ArrayList<ConfigLoader> subLoaders;
     
     public ConfigData(@Nonnull ASMDataTable.ASMData data) {
         this.data = data;
     }
     
-    public void addAdvData(ASMDataTable.ASMData data){
-        this.adv = data;
+    public void addAdvData(String name,ASMDataTable.ASMData data){
+        this.adv.put(name,data);
     }
     
     public boolean isFieldValid(){
@@ -90,18 +93,21 @@ public class ConfigData {
     }
     
     public ConfigLoader getLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class<?> configLoader = Class.forName(((Type)data.getAnnotationInfo().get("loader")).getClassName(),true, Loader.instance().getModClassLoader());
-        return (ConfigLoader) configLoader.newInstance();
+        if(loader == null) {
+            Class<?> configLoader = Class.forName(((Type) data.getAnnotationInfo().get("loader")).getClassName(), true, Loader.instance().getModClassLoader());
+           loader =  (ConfigLoader) configLoader.newInstance();
+        }
+        return loader;
     }
     
-    public ConfigLoader[] getSubLoaders() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public List<ConfigLoader> getSubLoaders() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         if(subLoaders == null){
             subLoaders = new ArrayList<>();
-            for(Object type : ((ArrayList<?>)this.adv.getAnnotationInfo().get("loaders"))){
+            for(Object type : ((ArrayList<?>)this.adv.get(SUB_LOADERS).getAnnotationInfo().get("loaders"))){
                 subLoaders.add((ConfigLoader) Class.forName(((Type)type).getClassName()).newInstance());
             }
         }
-        return subLoaders.toArray(new ConfigLoader[0]);
+        return subLoaders;
     }
     
     @Nonnull

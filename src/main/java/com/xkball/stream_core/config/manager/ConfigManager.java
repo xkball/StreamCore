@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -39,7 +38,7 @@ public class ConfigManager {
             for(ConfigData data1 : configMap.values()){
                 if(asmData.getClassName().equals(data1.getData().getClassName()) &&
                         asmData.getObjectName().equals(data1.getData().getObjectName())){
-                    data1.addAdvData(asmData);
+                    data1.addAdvData(ConfigData.SUB_LOADERS,asmData);
                 }
             }
         }

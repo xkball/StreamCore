@@ -14,6 +14,6 @@ public class BlockReg {
     
     public static class BlockDef<T extends Block>{
         Supplier<T> blockSupplier;
-        
+        T block;
     }
 }
