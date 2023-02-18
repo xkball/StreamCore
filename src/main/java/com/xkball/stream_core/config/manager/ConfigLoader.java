@@ -2,11 +2,11 @@ package com.xkball.stream_core.config.manager;
 
 import com.google.gson.JsonObject;
 
-public interface ConfigLoader{
+public interface ConfigLoader<T>{
     
-    JsonObject write(ConfigData data) throws IllegalAccessException;
+    JsonObject write(T data,ConfigLoader<?>... subLoaders) throws IllegalAccessException;
     
-    Object read(JsonObject json);
+    T read(JsonObject json,ConfigLoader<?>... subLoaders);
     
     
 }

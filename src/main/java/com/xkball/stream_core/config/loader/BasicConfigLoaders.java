@@ -2,23 +2,22 @@ package com.xkball.stream_core.config.loader;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.xkball.stream_core.config.manager.ConfigData;
 import com.xkball.stream_core.config.manager.ConfigLoader;
 
+//仅限基础类和String
 public class BasicConfigLoaders {
     
-    public static class BooleanConfigLoader implements ConfigLoader {
+    public static class BooleanConfigLoader implements ConfigLoader<Boolean> {
     
         @Override
-        public JsonObject write(ConfigData data) throws IllegalAccessException {
-            Object value = data.getFieldValue();
+        public JsonObject write(Boolean value,ConfigLoader<?>... subLoaders) throws IllegalAccessException {
             JsonObject result = new JsonObject();
-            result.addProperty("boolean",(boolean)value);
+            result.addProperty("boolean",value);
             return result;
         }
     
         @Override
-        public Object read(JsonObject json) {
+        public Boolean read(JsonObject json,ConfigLoader<?>... subLoaders) {
             try {
                 return json.get("boolean").getAsBoolean();
             } catch (Exception e){
@@ -28,32 +27,33 @@ public class BasicConfigLoaders {
         }
     }
     
-    public static class StringConfigLoader implements ConfigLoader{
+    public static class StringConfigLoader implements ConfigLoader<String>{
     
         @Override
-        public JsonObject write(ConfigData data) throws IllegalAccessException {
-            String value = (String) data.getFieldValue();
+        public JsonObject write(String value,ConfigLoader<?>... subLoaders) throws IllegalAccessException {
             JsonObject result = new JsonObject();
-            result.addProperty("string",value);
+            result.addProperty("string", value);
             return result;
         }
     
         @Override
-        public Object read(JsonObject json) {
+        public String read(JsonObject json,ConfigLoader<?>... subLoaders) {
             return json.get("string").getAsString();
         }
     }
     
-    public static class BlockTypeConfigLoader implements ConfigLoader{
-    
+    public static class FloatConfigLoader implements ConfigLoader<Float>{
         @Override
-        public JsonObject write(ConfigData data) throws IllegalAccessException {
-            return null;
+        public JsonObject write(Float data, ConfigLoader<?>... subLoaders) throws IllegalAccessException {
+            JsonObject result = new JsonObject();
+            result.addProperty("float",data);
+            return result;
         }
     
         @Override
-        public Object read(JsonObject json) {
-            return null;
+        public Float read(JsonObject json, ConfigLoader<?>... subLoaders) {
+            return json.get("float").getAsFloat();
         }
     }
+    
 }

@@ -35,6 +35,14 @@ public class ChunkUtil {
         data.setChunkData(tag);
     }
     
+    public static void addInt(Chunk chunk,String key,int addValue){
+        IChunkData data = (IChunkData) chunk;
+        NBTTagCompound tag = data.getChunkData();
+        int buff = data.getChunkData().getInteger(key);
+        tag.setInteger(key,buff+addValue);
+        data.setChunkData(tag);
+    }
+    
     public static boolean readBoolean(Chunk chunk,String key){
         IChunkData data = (IChunkData) chunk;
         return data.getChunkData().getBoolean(key);

@@ -101,3 +101,9 @@ publishing {
     }
 }
 compileJava.options.encoding = 'UTF-8'
+
+sourceSets {
+    main {
+        output.resourcesDir = output.classesDir
+    }
+}

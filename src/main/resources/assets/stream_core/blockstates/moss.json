@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "stream_core:moss"
+    }
+  }
+}

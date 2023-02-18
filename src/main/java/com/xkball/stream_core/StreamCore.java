@@ -1,6 +1,6 @@
 package com.xkball.stream_core;
 
-import com.xkball.stream_core.config.manager.ConfigManager;
+import com.xkball.stream_core.config.SCConfigs;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -33,6 +33,7 @@ public class StreamCore
         //logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         log("Stream Core started loading");
        // ConfigManager.reload();
+        log(SCConfigs.autoRegBlocks.toString());
     }
     
     

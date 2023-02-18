@@ -2,10 +2,7 @@ package com.xkball.stream_core.config.manager;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.xkball.stream_core.utils.JsonUtils;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
@@ -101,7 +98,7 @@ public class ConfigManager {
                 out.write(JsonUtils.jsonToString(json).getBytes());
                 FMLLog.log.info(type.info,file);
             }
-        } catch (ClassNotFoundException | IOException | IllegalAccessException |
+        } catch (JsonSyntaxException | ClassNotFoundException | IOException | IllegalAccessException |
                      InstantiationException e) {
                 throw new RuntimeException(e);
             }
@@ -120,9 +117,9 @@ public class ConfigManager {
                     JsonObject jo = json.getAsJsonObject(data.getFieldName());
                     if(jo != null) {
                         try {
-                            Object o = data.getLoader().read(jo);
+                            Object o = data.getLoader().read(jo,data.getSubLoaders().toArray(new ConfigLoader[0]));
                             data.setValue(o);
-                        }catch (JsonParseException e){
+                        }catch (Exception e){
                             genFile(path,(data1 -> data1.equals(data)),WriteFileType.REGEN);
                         }
                     }
@@ -132,7 +129,7 @@ public class ConfigManager {
                 }
             }
             return true;
-        } catch (JsonParseException | ClassCastException | IOException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+        } catch (JsonParseException | ClassCastException | IOException e) {
             return false;
         }
         

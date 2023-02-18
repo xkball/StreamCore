@@ -19,7 +19,7 @@ public class ConfigData {
     private final ASMDataTable.ASMData data;
     //name,data
     private final Map<String,ASMDataTable.ASMData> adv = new HashMap<>();
-    private ConfigLoader loader;
+    private ConfigLoader<?> loader;
     private ArrayList<ConfigLoader> subLoaders;
     
     public ConfigData(@Nonnull ASMDataTable.ASMData data) {
@@ -68,8 +68,10 @@ public class ConfigData {
         return toFile(toRelativePath());
     }
     
+    @SuppressWarnings("unchecked")
     public JsonObject writeTOJson() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        return getLoader().write(this);
+        
+        return getLoader().write(this.getFieldValue(),getSubLoaders().toArray(new ConfigLoader[0]));
     }
     
    public void setValue(Object o) throws IllegalAccessException {
@@ -95,7 +97,7 @@ public class ConfigData {
     public ConfigLoader getLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         if(loader == null) {
             Class<?> configLoader = Class.forName(((Type) data.getAnnotationInfo().get("loader")).getClassName(), true, Loader.instance().getModClassLoader());
-           loader =  (ConfigLoader) configLoader.newInstance();
+           loader =  (ConfigLoader<?>) configLoader.newInstance();
         }
         return loader;
     }
@@ -103,8 +105,15 @@ public class ConfigData {
     public List<ConfigLoader> getSubLoaders() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         if(subLoaders == null){
             subLoaders = new ArrayList<>();
-            for(Object type : ((ArrayList<?>)this.adv.get(SUB_LOADERS).getAnnotationInfo().get("loaders"))){
-                subLoaders.add((ConfigLoader) Class.forName(((Type)type).getClassName()).newInstance());
+            ASMDataTable.ASMData subLoaderData = this.adv.get(SUB_LOADERS);
+            if(subLoaderData != null){
+                //Map o =
+                ArrayList list = ((ArrayList)subLoaderData.getAnnotationInfo().get("loaders"));
+                if(list != null){
+                    for(Object type : list){
+                        subLoaders.add((ConfigLoader) Class.forName(((Type)type).getClassName()).newInstance());
+                    }
+                }
             }
         }
         return subLoaders;
