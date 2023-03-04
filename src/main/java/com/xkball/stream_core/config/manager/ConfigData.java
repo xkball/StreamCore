@@ -19,7 +19,7 @@ public class ConfigData {
     private final ASMDataTable.ASMData data;
     //name,data
     private final Map<String,ASMDataTable.ASMData> adv = new HashMap<>();
-    private ConfigLoader<?> loader;
+    private ConfigLoader loader;
     private ArrayList<ConfigLoader> subLoaders;
     
     public ConfigData(@Nonnull ASMDataTable.ASMData data) {

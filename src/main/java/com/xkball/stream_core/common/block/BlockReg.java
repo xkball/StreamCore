@@ -22,8 +22,10 @@ public class BlockReg {
     
     @SubscribeEvent
     public static void registerBlock(RegistryEvent.Register<Block> event) {
-        for(CustomBlockBase blockBase : SCConfigs.autoRegBlocks){
-            addAutoRegBlock(blockBase);
+        if(SCConfigs.enableAutoReg){
+            for(CustomBlockBase blockBase : SCConfigs.autoRegBlocks){
+                addAutoRegBlock(blockBase);
+            }
         }
         for(BlockDef<?> blockDef : blocks) {
             event.getRegistry().register(blockDef.getBlock());

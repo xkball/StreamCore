@@ -163,16 +163,18 @@ public class BlockProperty {
         return canBurn;
     }
     
-    public void setCanBurn(boolean canBurn) {
+    public BlockProperty setCanBurn(boolean canBurn) {
         this.canBurn = canBurn;
+        return this;
     }
     
     public boolean isReplaceable() {
         return replaceable;
     }
     
-    public void setReplaceable(boolean replaceable) {
+    public BlockProperty setReplaceable(boolean replaceable) {
         this.replaceable = replaceable;
+        return this;
     }
     
     public String getRequiresTool() {

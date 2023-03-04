@@ -9,9 +9,10 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Chunk.class)
 public abstract class SCMixinChunk implements IChunkData {
     
-    @Shadow public abstract void markDirty();
+    //@Shadow public abstract void markDirty();
     
-    @Shadow private boolean loaded;
+    @Shadow(remap = true) private boolean loaded;
+    @Shadow(remap = true) private boolean dirty;
     protected NBTTagCompound scChunkNBT;
     
     @Override
@@ -23,6 +24,10 @@ public abstract class SCMixinChunk implements IChunkData {
     public void setChunkData(NBTTagCompound nbtTagCompound) {
         
         scChunkNBT = nbtTagCompound;
-        if(this.loaded) this.markDirty();
+        if(this.loaded){
+            //this.markDirty();
+            this.dirty = true;
+        }
+       
     }
 }

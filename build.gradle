@@ -27,6 +27,16 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20171003-1.12'
+//    def args = [
+//            //"-Dfml.coreMods.load=ink.ikx.rt.impl.internal.core.CoreModBoot",
+//            "-Dmixin.hotSwap=true",
+//            "-Dmixin.checks.interfaces=true",
+//            "-torg.spongepowered.asm.launch.MixinTweaker"
+//           // "-Dmixin.debug.export=true"
+//    ]
+   // clientJvmArgs.addAll(args)
+    //serverJvmArgs.addAll(args)
+//    makeObfSourceJar = false
    runs {
         client {
             workingDirectory project.file('run')
@@ -36,7 +46,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-            arg '-torg.spongepowered.asm.launch.MixinTweaker'
+            arg    "-Dmixin.hotSwap=true"
+            arg    "-Dmixin.checks.interfaces=true"
+            arg    "-torg.spongepowered.asm.launch.MixinTweaker"
         }
 
         server {
@@ -46,7 +58,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
-            arg '-torg.spongepowered.asm.launch.MixinTweaker'
+            arg    "-Dmixin.hotSwap=true"
+            arg    "-Dmixin.checks.interfaces=true"
+            arg    "-torg.spongepowered.asm.launch.MixinTweaker"
         }
     }
 }
@@ -62,7 +76,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-             "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+            "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
             "TweakOrder": "0",
             "ForceLoadAsMod": "true",
             "Specification-Title": mod_name,
@@ -102,8 +116,9 @@ publishing {
 }
 compileJava.options.encoding = 'UTF-8'
 
-sourceSets {
-    main {
-        output.resourcesDir = output.classesDir
-    }
-}
+//sourceSets {
+//    main {
+//        output.resourcesDir = output.classesDir
+//        //ext.refMap = "mixins.stream_core.refmap.json"
+//    }
+//}

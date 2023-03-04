@@ -24,14 +24,15 @@ public class SCConfigs {
             path = "customBlocks")
    // @Config.SubLoaders(loaders = {BasicConfigLoaders.StringConfigLoader.class,BlockTypeLoader.class})
     @Config.SubLoaders(loaders = {CustomBlockBaseLoader.class})
-    public static List<CustomBlockBase> autoRegBlocks = new ArrayList<CustomBlockBase>(){
-        {
-            this.add( new CustomBlockBase(BlockType.Default,new BlockProperty()
-                    .setBlockHardness(5)
-                    .setBlockResistance(200)
-                    .setLightValue(10)
-                    .setTranslucent(true),
-                    "moss"));
-        }
-    };
+    public static List<CustomBlockBase> autoRegBlocks = new ArrayList<CustomBlockBase>();
+//    {
+//        {
+//            this.add( new CustomBlockBase(BlockType.Default,new BlockProperty()
+//                    .setBlockHardness(5)
+//                    .setBlockResistance(200)
+//                    .setLightValue(10)
+//                    .setTranslucent(true),
+//                    "moss"));
+//        }
+//    };
 }

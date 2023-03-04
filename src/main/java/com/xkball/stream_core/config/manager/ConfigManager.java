@@ -70,7 +70,7 @@ public class ConfigManager {
         if(!file.exists()){
             try {
                 //Files.createFile(file.toPath());
-                if(!file.getParentFile().mkdirs() && !file.createNewFile()){
+                if(!file.getParentFile().mkdirs() & !file.createNewFile()){
                     throw new IOException("Failed to create file");
                 }
             } catch (IOException e) {

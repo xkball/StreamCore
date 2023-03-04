@@ -16,6 +16,12 @@ public class ChunkUtil {
         return data.getChunkData().getCompoundTag(key);
     }
     
+    public static NBTTagCompound readNBT(Chunk chunk,String key,NBTTagCompound defaultValue){
+        IChunkData data = (IChunkData) chunk;
+        return data.getChunkData().hasKey(key) ? data.getChunkData().getCompoundTag(key) : defaultValue;
+    }
+    
+    
     public static void setNBT(Chunk chunk,String key,NBTTagCompound tag){
         IChunkData data = (IChunkData) chunk;
         NBTTagCompound taga = data.getChunkData();
@@ -26,6 +32,11 @@ public class ChunkUtil {
     public static int readInt(Chunk chunk,String key){
         IChunkData data = (IChunkData) chunk;
         return data.getChunkData().getInteger(key);
+    }
+    
+    public static int readInt(Chunk chunk,String key,int defaultValue){
+        IChunkData data = (IChunkData) chunk;
+        return data.getChunkData().hasKey(key) ? data.getChunkData().getInteger(key) : defaultValue;
     }
     
     public static void setInt(Chunk chunk,String key,int value){
@@ -63,6 +74,18 @@ public class ChunkUtil {
         IChunkData data = (IChunkData) chunk;
         NBTTagCompound tag = data.getChunkData();
         tag.setLong(key,value);
+        data.setChunkData(tag);
+    }
+    
+    public static String readString(Chunk chunk,String key){
+        IChunkData data = (IChunkData) chunk;
+        return data.getChunkData().getString(key);
+    }
+    
+    public static void setString(Chunk chunk,String key,String value){
+        IChunkData data = (IChunkData) chunk;
+        NBTTagCompound tag = data.getChunkData();
+        tag.setString(key,value);
         data.setChunkData(tag);
     }
 }
